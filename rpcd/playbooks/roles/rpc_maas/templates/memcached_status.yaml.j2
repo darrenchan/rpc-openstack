@@ -15,3 +15,6 @@ alarms      :
             if (metric["memcache_api_local_status"] != 1) {
                 return new AlarmStatus(CRITICAL, "memcache unavailable");
             }
+            if (metric["memcache_curr_connections"] > 0.9 * {{ memcached_connections }}) {
+                return new AlarmStatus(WARNING, "memcached connection count is >= 90% of max");
+            }
